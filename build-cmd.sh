@@ -27,8 +27,9 @@ source_environment_tempfile="$stage/source_environment.sh"
 "$autobuild" source_environment > "$source_environment_tempfile"
 . "$source_environment_tempfile"
 
+# Note that file has ZLIBNG_VERSION and ZLIB_VERSION, first one is the correct version, second one is used for zlib.version.dylib
 VERSION_HEADER_FILE="$ZLIB_SOURCE_DIR/zlib.h"
-version=$(sed -n -E 's/#define ZLIB_VERSION "([0-9.]+)"/\1/p' "${VERSION_HEADER_FILE}")
+version=$(sed -n -E 's/#define ZLIBNG_VERSION "([0-9.]+)"/\1/p' "${VERSION_HEADER_FILE}")
 build=${AUTOBUILD_BUILD_ID:=0}
 echo "${version}.${build}" > "${stage}/VERSION.txt"
 
@@ -79,8 +80,9 @@ pushd "$ZLIB_SOURCE_DIR"
                     ;;
             esac
 
-            # Install name for dylibs based on major version number
-            install_name="@executable_path/../Resources/libz.2.dylib"
+            # Install name for dylibs
+            # We copy libz.a for package, not dylibs
+            install_name="@executable_path/../Resources/libz.1.dylib"
 
             cc_opts="${TARGET_OPTS:--arch $AUTOBUILD_CONFIGURE_ARCH $LL_BUILD_RELEASE}"
             ld_opts="-Wl,-install_name,\"${install_name}\" -Wl,-headerpad_max_install_names"
@@ -92,7 +94,6 @@ pushd "$ZLIB_SOURCE_DIR"
                 ./configure $cfg_sw --prefix="$stage" --includedir="$stage/include/zlib-ng" --libdir="$stage/lib/release" --zlib-compat
             make
             make install
-            cp -a "$top"/libz_darwin_release.exp "$stage"/lib/release/libz_darwin.exp
 
             # conditionally run unit tests
             if [ "${DISABLE_UNIT_TESTS:-0}" = "0" ]; then
