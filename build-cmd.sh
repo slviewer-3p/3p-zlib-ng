@@ -91,7 +91,7 @@ pushd "$ZLIB_SOURCE_DIR"
             # release
             CFLAGS="$cc_opts" \
             LDFLAGS="$ld_opts" \
-                ./configure $cfg_sw --prefix="$stage" --includedir="$stage/include/zlib-ng" --libdir="$stage/lib/release" --zlib-compat
+                ./configure $cfg_sw --prefix="$stage" --includedir="$stage/include/zlib-ng" --libdir="$stage/lib/release" --zlib-compat --without-optimizations --force-sse2
             make
             make install
 
