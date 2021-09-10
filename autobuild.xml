@@ -10,7 +10,7 @@
       <key>description</key>
       <string>zlib data compression library for the next generation systems</string>
       <key>license</key>
-      <string>zlib</string>
+      <string>zlib-ng</string>
       <key>license_file</key>
       <string>LICENSES/zlib-ng.txt</string>
       <key>name</key>
