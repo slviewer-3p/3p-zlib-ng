@@ -4,7 +4,7 @@
     <key>package_description</key>
     <map>
       <key>canonical_repo</key>
-      <string>https://bitbucket.org/lindenlab/3p-zlib-ng</string>
+      <string>https://github.com/slviewer-3p/3p-zlib-ng</string>
       <key>copyright</key>
       <string>Copyright (C) 1995-2013 Jean-loup Gailly and Mark Adler</string>
       <key>description</key>
