@@ -137,7 +137,7 @@ pushd "$ZLIB_SOURCE_DIR"
             fi
 
             # Default target per autobuild build --address-size
-            opts="${TARGET_OPTS:--m$AUTOBUILD_ADDRSIZE $LL_BUILD_RELEASE}"
+            opts="${TARGET_OPTS:-${AUTOBUILD_GCC_ARCH} $LL_BUILD_RELEASE}"
 
             # Handle any deliberate platform targeting
             if [ ! "${TARGET_CPPFLAGS:-}" ]; then
